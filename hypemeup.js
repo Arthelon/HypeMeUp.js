@@ -63,7 +63,6 @@
     	})
 
         this.stopTheHype = function() {
-            console.log("invoked")
             animationIds.forEach(function(id) {
                 window.clearInterval(id)
             })

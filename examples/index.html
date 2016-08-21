@@ -16,11 +16,12 @@
 	<script src="../hypemeup.js"></script>
 	<script type="text/javascript">
 		$("button").click(function() {
-			$("#container").hype({
-				timeout: 2000,
+			var handle = $("#container").hype({
 				rotate: -50,
 				slide: false
 			})
+
+			setTimeout(handle.stopTheHype, 2000)
 		})
 	</script>
 </body>
