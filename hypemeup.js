@@ -7,7 +7,8 @@
                 throw new Error("Hype option \'"+ key + "\' must be a " + typeof $.fn.hype.defaults[key])
             }
         })
-        opts = !!opts ? {} : opts
+        opts = !opts ? {} : opts
+        console.log()
 		return opts
 	}
 
@@ -28,16 +29,32 @@
     		var $childWidth = $this.width()
     		var $childHeight = $this.height()
 
+            var currentRot = 0
+
     		var animateInterval = window.setInterval(function() {
                 $this.css("position", "fixed")
-    			$this.animate({
-                    left: Math.floor(Math.random() * $parentWidth),
-                    top: Math.floor(Math.random() * $parentHeight)
-                })
-				// var randomLeft = Math.floor(Math.random() * ($parentWidth + $childWidth)) - $childWidth
-				// var randomTop = Math.floor(Math.random() * ($parentHeight + $childHeight)) - $childHeight
+
+                if (options.slide) {
+                    $this.animate({
+                        left: Math.floor(Math.random() * $parentWidth),
+                        top: Math.floor(Math.random() * $parentHeight)
+                    })
+                } else {
+                    $this.offset({
+                        left: Math.floor(Math.random() * $parentWidth),
+                        top: Math.floor(Math.random() * $parentHeight)
+                    })
+                }
+
+                //Rotation
+                currentRot += options.rotate
+                if (Math.abs(currentRot) >= 360) {
+                    currentRot += currentRot < 0 ? 360 : -360
+                }
+                $this.css({'transform' : 'rotate('+ currentRot +'deg)'});
+
+
     			if (options.color) {
-                    console.log(getRandomRGB())
     				$this.css("background-color", getRandomRGB())
     			}
     		}, options.delay)
@@ -57,7 +74,7 @@
     $.fn.hype.defaults = {
         delay: 100,
         color: true,
-        rotate: 0,
+        rotate: 0, //in degrees
         timeout: -1, //Loops forever if value < 1 is set
         slide: true
     }
