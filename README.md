@@ -7,7 +7,7 @@ jQuery plugin to add cool hype animations to your site
 ### Usage
 ```
 var $handler = $(selector).hype(options)
-var $handler.stopTheHype()  //Stops the animation
+$handler.stopTheHype()  //Stops the animation
 ```
 
 **options**

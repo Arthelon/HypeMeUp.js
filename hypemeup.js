@@ -8,7 +8,6 @@
             }
         })
         opts = !opts ? {} : opts
-        console.log()
 		return opts
 	}
 
@@ -70,6 +69,7 @@
                 $(this).clearQueue()
             })
         }
+        
         //Stops animations once timeout is reached
         if (options.timeout >= 0) {
             setTimeout(this.stopTheHype, options.timeout)
