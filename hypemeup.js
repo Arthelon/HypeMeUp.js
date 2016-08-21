@@ -1,8 +1,13 @@
 (function ( $ ) {
 	function validateOpts(opts) {
-        if (!opts) {
-            opts = {}
-        }
+        Object.keys(opts).forEach(function(key) {
+            if (typeof $.fn.hype.defaults[key] == "undefined") {
+                throw new Error("Invalid hype option: \'" + key + "\'")
+            } else if (typeof opts[key] != typeof $.fn.hype.defaults[key]) {
+                throw new Error("Hype option \'"+ key + "\' must be a " + typeof $.fn.hype.defaults[key])
+            }
+        })
+        opts = !!opts ? {} : opts
 		return opts
 	}
 
@@ -14,7 +19,6 @@
  
     $.fn.hype = function(opts) {
     	var options = $.extend({}, $.fn.hype.defaults, validateOpts(opts))
-        console.log(options)
     	$parent = this
     	$parentWidth = $parent.width()
     	$parentHeight = $parent.height()
@@ -53,9 +57,8 @@
     $.fn.hype.defaults = {
         delay: 100,
         color: true,
-        rotate: null,
+        rotate: 0,
         timeout: -1, //Loops forever if value < 1 is set
-        silent: false,
         slide: true
     }
  
