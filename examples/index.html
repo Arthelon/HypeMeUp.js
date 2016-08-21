@@ -11,13 +11,16 @@
 		<h1>test</h1>
 		<h1>test</h1>
 	</div>
-	<script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="  crossorigin="anonymous"></script>
+	<button>Hype me up!</button>
+	<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 	<script src="../hypemeup.js"></script>
 	<script type="text/javascript">
-		$("#container").hype({
-			// timeout: 2000,
-			rotate: -50,
-			slide: false
+		$("button").click(function() {
+			$("#container").hype({
+				timeout: 2000,
+				rotate: -50,
+				slide: false
+			})
 		})
 	</script>
 </body>

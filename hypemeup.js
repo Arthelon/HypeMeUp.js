@@ -20,9 +20,11 @@
  
     $.fn.hype = function(opts) {
     	var options = $.extend({}, $.fn.hype.defaults, validateOpts(opts))
-    	$parent = this
-    	$parentWidth = $parent.width()
-    	$parentHeight = $parent.height()
+    	var $parent = this
+    	var $parentWidth = $parent.width()
+    	var $parentHeight = $parent.height()
+
+        var animationIds = []
 
     	$parent.find("*").each(function() {
     		var $this = $(this)
@@ -31,7 +33,7 @@
 
             var currentRot = 0
 
-    		var animateInterval = window.setInterval(function() {
+    		animationIds.push(window.setInterval(function() {
                 $this.css("position", "fixed")
 
                 if (options.slide) {
@@ -57,16 +59,22 @@
     			if (options.color) {
     				$this.css("background-color", getRandomRGB())
     			}
-    		}, options.delay)
-
-    		//Stops animations once timeout is reached
-    		if (options.timeout >= 0) {
-    			setTimeout(function() {
-                    $this.clearQueue()
-    				window.clearInterval(animateInterval)
-    			}, options.timeout)
-    		}
+    		}, options.delay))
     	})
+
+        this.stopTheHype = function() {
+            console.log("invoked")
+            animationIds.forEach(function(id) {
+                window.clearInterval(id)
+            })
+            $parent.each(function() {
+                $(this).clearQueue()
+            })
+        }
+        //Stops animations once timeout is reached
+        if (options.timeout >= 0) {
+            setTimeout(this.stopTheHype, options.timeout)
+        }
     	return this
     }
 
