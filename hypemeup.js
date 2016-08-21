@@ -1,5 +1,7 @@
 (function ( $ ) {
+
 	function validateOpts(opts) {
+        //Throws error if key is not in default options of if key type is different
         Object.keys(opts).forEach(function(key) {
             if (typeof $.fn.hype.defaults[key] == "undefined") {
                 throw new Error("Invalid hype option: \'" + key + "\'")
@@ -26,8 +28,6 @@
         var initialState = $parent.html()
 
         var animationIds = []
-        console.log($parent.find("*"))
-        console.log($parent)
     	$parent.find("*").each(function() {
     		var $this = $(this)
     		var $childWidth = $this.width()
@@ -36,9 +36,8 @@
             var currentRot = 0
 
     		animationIds.push(window.setInterval(function() {
-                console.log('1')
                 $this.css("position", "fixed")
-
+                //Slide or offset random position
                 if (options.slide) {
                     $this.animate({
                         left: Math.floor(Math.random() * $parentWidth),
@@ -58,7 +57,7 @@
                 }
                 $this.css({'transform' : 'rotate('+ currentRot +'deg)'});
 
-
+                //Random background color
     			if (options.color) {
     				$this.css("background-color", getRandomRGB())
     			}
@@ -66,9 +65,11 @@
     	})
 
         $parent.stopTheHype = function() {
+            //stops animation intervals from continuing
             animationIds.forEach(function(id) {
                 window.clearInterval(id)
             })
+            //Revert parent back to initial state
             $parent.empty()
             $parent.append(initialState)
         }
