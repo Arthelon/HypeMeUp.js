@@ -23,8 +23,11 @@
     	var $parentWidth = $parent.width()
     	var $parentHeight = $parent.height()
 
-        var animationIds = []
+        var initialState = $parent.html()
 
+        var animationIds = []
+        console.log($parent.find("*"))
+        console.log($parent)
     	$parent.find("*").each(function() {
     		var $this = $(this)
     		var $childWidth = $this.width()
@@ -33,6 +36,7 @@
             var currentRot = 0
 
     		animationIds.push(window.setInterval(function() {
+                console.log('1')
                 $this.css("position", "fixed")
 
                 if (options.slide) {
@@ -61,20 +65,19 @@
     		}, options.delay))
     	})
 
-        this.stopTheHype = function() {
+        $parent.stopTheHype = function() {
             animationIds.forEach(function(id) {
                 window.clearInterval(id)
             })
-            $parent.each(function() {
-                $(this).clearQueue()
-            })
+            $parent.empty()
+            $parent.append(initialState)
         }
-        
+
         //Stops animations once timeout is reached
         if (options.timeout >= 0) {
-            setTimeout(this.stopTheHype, options.timeout)
+            setTimeout($parent.stopTheHype, options.timeout)
         }
-    	return this
+    	return $parent
     }
 
     //Default options
