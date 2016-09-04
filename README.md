@@ -21,4 +21,6 @@ $handler.stopTheHype()  //Stops the animation
     + Stops the animation when timeout (in ms) is reached. Loops forever if below 0 *(default: -1)*
 - slide (Boolean)
     + Slides to random location if true *(default: true)*
+- audio (String)
+    + URL for audio file to play during animation
 

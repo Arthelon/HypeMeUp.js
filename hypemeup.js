@@ -26,6 +26,18 @@
     	var $parentHeight = $parent.height()
 
         var initialState = $parent.html()
+        if (options.audio) {
+            var audioElem = document.createElement("audio")
+            audioElem.setAttribute("src", options.audio)
+            audioElem.setAttribute("autoplay", "autoplay")
+            audioElem.setAttribute("loop", "loop")
+
+            $.get()
+            audioElem.addEventListener("load", function() {
+                audioElem.play()
+            }, true)
+        }
+
 
         var animationIds = []
     	$parent.find("*").each(function() {
@@ -72,6 +84,8 @@
             //Revert parent back to initial state
             $parent.empty()
             $parent.append(initialState)
+            audioElem.pause()
+            audioElem.currentTime = 0
         }
 
         //Stops animations once timeout is reached
@@ -87,7 +101,8 @@
         color: true,
         rotate: 0, //in degrees
         timeout: -1, //Loops forever if value < 1 is set
-        slide: true
+        slide: true,
+        audio: 's'
     }
  
 }( jQuery ));
